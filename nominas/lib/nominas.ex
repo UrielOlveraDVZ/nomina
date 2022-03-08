@@ -5,7 +5,7 @@ defmodule Nominas do
 
   def handle() do
     #READ FILE
-    path_file = ~s(/home/dozenth/Codes/DVZ/Complemento Nominas/insumosXML/01.xml)
+    path_file = ~s(C:/Users/ale_b/Desktop/DVZ/nomina/insumosXML/01.xml)
     xml = case File.read(path_file) do
       {:ok, xml} -> xml
       {:error, x} -> IO.inspect({:error, x})
@@ -14,17 +14,82 @@ defmodule Nominas do
     {:ok, xml_document} = read(xml_document)
 
     #RULES DEFINITION
-    rule_name = :rule_name
-    rule = {
-
+    rule_name = :conditional_prensece_of_field
+    rule = {:RCurp, :path, '//nomina12:Receptor/@Curp',
+    :rfc, :path, '//cfdi:Comprobante/cfdi:Receptor/@Rfc',
+    :regex,~r/^XAXX010101000$/,
+    :sat_error_code,"NOM10",:sat_error_message,"El atributo Comprobante.Receptor.Rfc registra el RFC genérico XAXX010101000, por lo que en el atributo Nomina12:Receptor:Curp, debe registrar la CURP del receptor fallecido."
     }
 
-    check({rule_name, rule}, xml_document)
+    IO.inspect(check({rule_name, rule}, xml_document))
   end
+
+
   #RULES FUNCTIONS
-  def check({:rule_name, rule}, xml_document) do
-    {:ok, ""}
+  def check({:conditional_prensece_of_field, rule}, xml_document) do
+    {field,_,path,
+    cond_rule,_,cond_path,
+    cond_field,regex,
+    _,sat_code,
+    _,sat_message} = rule
+    cond_value = query(cond_path, xml_document)
+
+    case String.match?(to_string(cond_value), regex) do
+      true ->
+        IO.puts "NOOOO"
+        result = validate_presence(path, xml_document)
+        cond do
+          result == true -> {:ok, field}
+          true ->
+            system_message = "The field #{field} must contian value when #{cond_field} is #{cond_rule}"
+            {:error, build_response_struct(field, system_message, sat_code, sat_message)}
+        end
+      false ->
+        IO.puts "SIIIIII"
+        {:ok, field}
+    end
   end
+
+
+  defp validate_presence(path,xml_document) do
+    case query_multiple(path,xml_document) do
+      [] -> false
+      _ -> true
+    end
+  end
+
+
+  # NOM3-------------------------------------------------------------------------------------------
+  # field_value: {:Exportacion,:path,'//cfdi:Comprobante/@Exportacion',
+  # :value,'01',:sat_error_code,"NOM3",
+  # :sat_error_message,"En el atributo Comprobante.Exportacion, se debe registrar la clave 01."},
+
+  # NOM4-------------------------------------------------------------------------------------------
+  # absence_of_node: {:InformacionGlobal,:path,'//cfdi:Comprobante/cfdi:InformacionGlobal',
+  # :sat_error_code,"NOM4",:sat_error_message,"El nodo Comprobante.InformacionGlobal, no debe existir."},
+
+  #NOM7------------------------------------------------------------------------------------------------
+  # absence_of_field: {:FacAtrAdquirente,:path,'//cfdi:Comprobante/cfdi:Emisor/@FacAtrAdquirente',
+  # :sat_error_code,"NOM7",:sat_error_message,"El atributo Comprobante.Emisor.FacAtrAdquirente, no debe existir."},
+
+  #NOM10------------------------------------------------------------------------------------------------
+  # conditional_prensece_of_field: {:RCurp, :path, '//nomina12:Receptor/@Curp',
+  # :rfc, :path, '//cfdi:Comprobante/cfdi:Receptor/@Rfc',
+  # :regex,~r/^XAXX010101000$/,
+  # :sat_error_code,"NOM10",:sat_error_message,"El atributo Comprobante.Receptor.Rfc registra el RFC genérico XAXX010101000, por lo que en el atributo Nomina12:Receptor:Curp, debe registrar la CURP del receptor fallecido."},
+
+  #NOM11-----------------------------------------------------------------------------------------------------
+  # field_value: {:RegimenFiscalReceptor,:path,'//cfdi:Comprobante/cfdi:Receptor/@RegimenFiscalReceptor',
+  # :value,'605',:sat_error_code,"NOM11",
+  # :sat_error_message,"El atributo Comprobante.Receptor.RegimenFiscalReceptor no tiene el valor =  605."},
+
+  #NOM12-----------------------------------------------------------------------------------------------------
+  # field_value: {:UsoCFDI,:path,'//cfdi:Comprobante/cfdi:Receptor/@UsoCFDI',
+  # :value,'CN01',:sat_error_code,"NOM12",
+  # :sat_error_message,"El atributo Comprobante.Receptor.UsoCFDI no tiene el valor =  CN01."},
+
+
+
 
   # --------------------------------------------------------------------------------------------------------------------
 
