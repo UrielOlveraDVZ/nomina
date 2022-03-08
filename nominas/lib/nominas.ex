@@ -15,10 +15,12 @@ defmodule Nominas do
 
     #RULES DEFINITION
     rule_name = :conditional_prensece_of_field
-    rule = {:RCurp, :path, '//nomina12:Receptor/@Curp',
-    :rfc, :path, '//cfdi:Comprobante/cfdi:Receptor/@Rfc',
-    :regex,~r/^XAXX010101000$/,
-    :sat_error_code,"NOM10",:sat_error_message,"El atributo Comprobante.Receptor.Rfc registra el RFC genérico XAXX010101000, por lo que en el atributo Nomina12:Receptor:Curp, debe registrar la CURP del receptor fallecido."
+    rule = {
+      :RCurp, :path, '//nomina12:Receptor/@Curp',
+      :rfc, :path, '//cfdi:Comprobante/cfdi:Receptor/@Rfc',
+      :regex,~r/^XAXX010101000$/,
+      :sat_error_code,"NOM10",
+      :sat_error_message,"El atributo Comprobante.Receptor.Rfc registra el RFC genérico XAXX010101000, por lo que en el atributo Nomina12:Receptor:Curp, debe registrar la CURP del receptor fallecido."
     }
 
     IO.inspect(check({rule_name, rule}, xml_document))
@@ -58,38 +60,122 @@ defmodule Nominas do
     end
   end
 
+  def check({:validate_item_presence, rule}, xml_document) do
+    {
+      field,
+      path,
+      _,
+      system_message,
+      _,
+      sat_error_code,
+      _,
+      sat_error_message
+    } = rule
 
-  # NOM3-------------------------------------------------------------------------------------------
-  # field_value: {:Exportacion,:path,'//cfdi:Comprobante/@Exportacion',
-  # :value,'01',:sat_error_code,"NOM3",
-  # :sat_error_message,"En el atributo Comprobante.Exportacion, se debe registrar la clave 01."},
+    case query_multiple(path, xml_document) do
+      [] -> {:error}
+      _ -> {:ok}
+    end
+  end
+  def check({:validate_item_absence, rule}, xml_document) do
+    {
+      field,
+      path,
+      _,
+      system_message,
+      _,
+      sat_error_code,
+      _,
+      sat_error_message
+    } = rule
 
-  # NOM4-------------------------------------------------------------------------------------------
-  # absence_of_node: {:InformacionGlobal,:path,'//cfdi:Comprobante/cfdi:InformacionGlobal',
-  # :sat_error_code,"NOM4",:sat_error_message,"El nodo Comprobante.InformacionGlobal, no debe existir."},
+    case query_multiple(path, xml_document) do
+      _ -> {:error}
+      [] -> {:ok}
+    end
+  end
 
-  #NOM7------------------------------------------------------------------------------------------------
-  # absence_of_field: {:FacAtrAdquirente,:path,'//cfdi:Comprobante/cfdi:Emisor/@FacAtrAdquirente',
-  # :sat_error_code,"NOM7",:sat_error_message,"El atributo Comprobante.Emisor.FacAtrAdquirente, no debe existir."},
+  # # NOM3-------------------------------------------------------------------------------------------
+  # field_value: {
+  #   :Exportacion,:path,'//cfdi:Comprobante/@Exportacion',
+  #   :value,'01',:sat_error_code,"NOM3",
+  #   :sat_error_message,"En el atributo Comprobante.Exportacion, se debe registrar la clave 01."},
 
-  #NOM10------------------------------------------------------------------------------------------------
-  # conditional_prensece_of_field: {:RCurp, :path, '//nomina12:Receptor/@Curp',
-  # :rfc, :path, '//cfdi:Comprobante/cfdi:Receptor/@Rfc',
-  # :regex,~r/^XAXX010101000$/,
-  # :sat_error_code,"NOM10",:sat_error_message,"El atributo Comprobante.Receptor.Rfc registra el RFC genérico XAXX010101000, por lo que en el atributo Nomina12:Receptor:Curp, debe registrar la CURP del receptor fallecido."},
+  # # NOM4-------------------------------------------------------------------------------------------
+  # absence_of_node: {
+  #   :InformacionGlobal,:path,'//cfdi:Comprobante/cfdi:InformacionGlobal',
+  #   :sat_error_code,"NOM4",
+  #   :sat_error_message,"El nodo Comprobante.InformacionGlobal, no debe existir."},
 
-  #NOM11-----------------------------------------------------------------------------------------------------
-  # field_value: {:RegimenFiscalReceptor,:path,'//cfdi:Comprobante/cfdi:Receptor/@RegimenFiscalReceptor',
-  # :value,'605',:sat_error_code,"NOM11",
-  # :sat_error_message,"El atributo Comprobante.Receptor.RegimenFiscalReceptor no tiene el valor =  605."},
+  # # NOM7------------------------------------------------------------------------------------------------
+  # absence_of_field: {
+  #   :FacAtrAdquirente,:path,'//cfdi:Comprobante/cfdi:Emisor/@FacAtrAdquirente',
+  #   :sat_error_code,"NOM7",
+  #   :sat_error_message,"El atributo Comprobante.Emisor.FacAtrAdquirente, no debe existir."},
 
-  #NOM12-----------------------------------------------------------------------------------------------------
-  # field_value: {:UsoCFDI,:path,'//cfdi:Comprobante/cfdi:Receptor/@UsoCFDI',
-  # :value,'CN01',:sat_error_code,"NOM12",
-  # :sat_error_message,"El atributo Comprobante.Receptor.UsoCFDI no tiene el valor =  CN01."},
+  # # NOM10------------------------------------------------------------------------------------------------
+  # conditional_prensece_of_field: {
+  #   :RCurp, :path, '//nomina12:Receptor/@Curp',
+  #   :rfc, :path, '//cfdi:Comprobante/cfdi:Receptor/@Rfc',
+  #   :regex,~r/^XAXX010101000$/,
+  #   :sat_error_code,"NOM10",
+  #   :sat_error_message,"El atributo Comprobante.Receptor.Rfc registra el RFC genérico XAXX010101000, por lo que en el atributo Nomina12:Receptor:Curp, debe registrar la CURP del receptor fallecido."},
 
+  # # NOM11-----------------------------------------------------------------------------------------------------
+  # field_value: {
+  #   :RegimenFiscalReceptor,:path,'//cfdi:Comprobante/cfdi:Receptor/@RegimenFiscalReceptor',
+  #   :value,'605',
+  #   :sat_error_code,"NOM11",
+  #   :sat_error_message,"El atributo Comprobante.Receptor.RegimenFiscalReceptor no tiene el valor =  605."},
 
+  # # NOM12-----------------------------------------------------------------------------------------------------
+  # field_value: {
+  #   :UsoCFDI,:path,'//cfdi:Comprobante/cfdi:Receptor/@UsoCFDI',
+  #   :value,'CN01',
+  #   :sat_error_code,"NOM12",
+  #   :sat_error_message,"El atributo Comprobante.Receptor.UsoCFDI no tiene el valor =  CN01."},
 
+  # # NOM23-----------------------------------------------------------------------------------------------------
+  # validate_item_presence: {
+  #   :objetoImp, '//cfdi:Comprobante/cfdi:Conceptos/cfdi:Concepto[@ObjetoImp = "01"]',
+  #   :system_message, ~s(El atributo Comprobante.Conceptos.Concepto.ObjetoImp, se debe registrar la clave "01".),
+  #   :sat_error_code, ~s(NOM23),
+  #   :sat_error_message, ~s(El atributo Comprobante.Conceptos.Concepto.ObjetoImp, se debe registrar la clave "01".)},
+
+  # # NOM25-----------------------------------------------------------------------------------------------------
+  # validate_item_absence: {
+  #   :ACuentaTerceros, '//cfdi:Comprobante/cfdi:Conceptos/cfdi:Concepto/cfdi:ACuentaTerceros',
+  #   :system_message, ~s(El nodo Comprobante.Conceptos.Concepto.ACuentaTerceros, no debe existir.),
+  #   :sat_error_code, ~s(NOM25),
+  #   :sat_error_message, ~s(El nodo Comprobante.Conceptos.Concepto.ACuentaTerceros, no debe existir.)},
+
+  # # NOM26-----------------------------------------------------------------------------------------------------
+  # validate_item_absence: {
+  #   :InformacionAduanera, '//cfdi:Comprobante/cfdi:Conceptos/cfdi:Concepto/cfdi:InformacionAduanera',
+  #   :system_message, ~s(El nodo Comprobante.Conceptos.Concepto.InformacionAduanera, no debe existir.),
+  #   :sat_error_code, ~s(NOM26),
+  #   :sat_error_message, ~s(El nodo Comprobante.Conceptos.Concepto.InformacionAduanera, no debe existir.)},
+
+  # # NOM27-----------------------------------------------------------------------------------------------------
+  # validate_item_absence: {
+  #   :CuentaPredial, '//cfdi:Comprobante/cfdi:Conceptos/cfdi:Concepto/cfdi:CuentaPredial',
+  #   :system_message, ~s(El nodo Comprobante.Conceptos.Concepto.CuentaPredial, no debe existir.),
+  #   :sat_error_code, ~s(NOM27),
+  #   :sat_error_message, ~s(El nodo Comprobante.Conceptos.Concepto.CuentaPredial, no debe existir.)},
+
+  # # NOM28-----------------------------------------------------------------------------------------------------
+  # validate_item_absence: {
+  #   :ComplementoConcepto, '//cfdi:Comprobante/cfdi:Conceptos/cfdi:Concepto/cfdi:ComplementoConcepto',
+  #   :system_message, ~s(El nodo Comprobante.Conceptos.Concepto.ComplementoConcepto, no debe existir.),
+  #   :sat_error_code, ~s(NOM28),
+  #   :sat_error_message, ~s(El nodo Comprobante.Conceptos.Concepto.ComplementoConcepto, no debe existir.)},
+
+  # #NOM29-----------------------------------------------------------------------------------------------------
+  # validate_item_absence: {
+  #   :Parte, '//cfdi:Comprobante/cfdi:Conceptos/cfdi:Concepto/cfdi:Parte',
+  #   :system_message, ~s(El nodo Comprobante.Conceptos.Concepto.Parte, no debe existir.),
+  #   :sat_error_code, ~s(NOM29),
+  #   :sat_error_message, ~s(El nodo Comprobante.Conceptos.Concepto.Parte, no debe existir.)},
 
   # --------------------------------------------------------------------------------------------------------------------
 
