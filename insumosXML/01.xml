@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<cfdi:Comprobante 
+    xmlns:cfdi="http://www.sat.gob.mx/cfd/4"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:nomina12="http://www.sat.gob.mx/nomina12"
+    xsi:schemaLocation="
+    http://www.sat.gob.mx/cfd/4
+    http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd
+    http://www.sat.gob.mx/nomina12 
+    http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd"
+    Version="4.0" Serie="CFDI" Folio="001" Fecha="2022-01-27T11:49:48" Sello="rXjeejeP7jDXsk2sJ17VBqGsP5qqGS5mZYfqEv9kJVAC7CRvG6kBbiD+toUpNwzNuLDLwNftfHc6qJOmxv64OGIIEObMzqvh5AThv5HdSzaK/AlyZR9vzlo95GPeO2S3ysZ+Gl3xOL3blrvV69yZMtQJMYU6znr1gF1fC9oEhnny9ujGHz9B4Yac26zbgmgVKF+8f+4U/6/IBEzQx3VkplaoV9c5jB1om0K/CeBi/ek8baOk4drhahCqd2isRuF7LlhGB93lCu5N3Jcz7WPmy+wogyTamnMpF3Cxqf7Ev4lGGve3WAMyZWqkp332XyXx5Z3Bo0yLJTcZLF02R4GGsw==" NoCertificado="30001000000400002321" Certificado="MIIFijCCA3KgAwIBAgIUMzAwMDEwMDAwMDA0MDAwMDIzMjEwDQYJKoZIhvcNAQELBQAwggErMQ8wDQYDVQQDDAZBQyBVQVQxLjAsBgNVBAoMJVNFUlZJQ0lPIERFIEFETUlOSVNUUkFDSU9OIFRSSUJVVEFSSUExGjAYBgNVBAsMEVNBVC1JRVMgQXV0aG9yaXR5MSgwJgYJKoZIhvcNAQkBFhlvc2Nhci5tYXJ0aW5lekBzYXQuZ29iLm14MR0wGwYDVQQJDBQzcmEgY2VycmFkYSBkZSBjYWRpejEOMAwGA1UEEQwFMDYzNzAxCzAJBgNVBAYTAk1YMRkwFwYDVQQIDBBDSVVEQUQgREUgTUVYSUNPMREwDwYDVQQHDAhDT1lPQUNBTjERMA8GA1UELRMIMi41LjQuNDUxJTAjBgkqhkiG9w0BCQITFnJlc3BvbnNhYmxlOiBBQ0RNQS1TQVQwHhcNMTkwNTI5MTcxNzQwWhcNMjMwNTI5MTcxNzQwWjCBsTEdMBsGA1UEAxMUS0FSTEEgRlVFTlRFIE5PTEFTQ08xHTAbBgNVBCkTFEtBUkxBIEZVRU5URSBOT0xBU0NPMR0wGwYDVQQKExRLQVJMQSBGVUVOVEUgTk9MQVNDTzEWMBQGA1UELRMNRlVOSzY3MTIyOFBINjEbMBkGA1UEBRMSRlVOSzY3MTIyOE1DTE5MUjA1MR0wGwYDVQQLExRLQVJMQSBGVUVOVEUgTk9MQVNDTzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALcigR0/27nsBVgrbB/neBsY7R3cRvR3Ka9w4ovRtpN2pe62A5dfew7eNaaXQESF/bcbaq/bI9VuI5NJqxx0QVIRRn+pAJb53PsMVVAj81JoPUislh0AlxuMHhI8TxpGmwrVU+PejfuQ49wqfQsOnqYAuHi0PvvzE/N2Ja32+yEOMzE40B0OqoBO2t93I+he+/THXhijEKeeSO4s+kgNBUKvZNqu/00Rrqu5DjfFLFHCwqBQraym1xlSBt7C3m8nGsPbn/R0BMypfSZPSuQJNxDX0W3+zhlKrnFMMQWEHgMJ75kQPIhHLN+/MKUe3j75ViDL6ejupN/DO/AtYHcMtPsCAwEAAaMdMBswDAYDVR0TAQH/BAIwADALBgNVHQ8EBAMCBsAwDQYJKoZIhvcNAQELBQADggIBACdpf+YqxKhVyH/nTxnZHTbg4BzMoCrC5NXKU4XUvZ37/E1fzqLIcLaNZUIwdwhKw5qQrNIbn0AEtWA/PIHUeAffoJOMWklNlGMOeXlX6PmAF692ywISLxhy7Nt9aLYIr4yT6P8a8zR9em0B6guW3BudSNKIui+FpTYNmCpttSPfJ07lvYY1VYvGwAqwnAzWUWHqoh1S6Y+qKxvUAw6Cj3n3A1iQiWqrCFBeaoe2iw050jTRT/THx4qIGAqQJSYiO+z5xjiUxTnxZBj7ZGAjjNITg+AEnqEnyYUnjhRLq38BlJTvaPrAmXuisJV8YGvwvuyrBG/eSZqnLf1MkD2Z5aX2L2blmvUxpTSUw9kz2scXUVUBiBiW3AXztrtM5Dyg3O/vGdFOPh1f9CNuzDCgbUAe2ifIyPYtJKAmicMatc279+Z14MpqpsWkgvHHPE2D8tlsnnrIs5eT+ghKhOtQKCXrwv7khTU3szJOjTFvANy6V6iiEswABn4fbKVwK3XbwwtWa9oMFj4hHVi6LAz9ze8R36MFq+O6ERIlVqD/sVcypU2mEEjqRypP8lu6qO6oUo1lt91TqqBLjFz1dIN9B4o+vpikUlCJldOSvhHNtwmg/lgepxR9P2RYJhH5xz+6tlM1/Fs9SAYY52g6nqMmxcddfMNQKp15u0DW5ue+4F5m" SubTotal="30000" Descuento="0.00" Moneda="MXN" Total="30000" TipoDeComprobante="N" Exportacion="01" MetodoPago="PUE" LugarExpedicion="01000" Confirmacion="ECVH1">
+    <cfdi:CfdiRelacionados TipoRelacion="01">
+        <cfdi:CfdiRelacionado UUID="5FB2822E-396D-4725-8521-CDC4BDD20CCF" />
+    </cfdi:CfdiRelacionados>
+    <cfdi:Emisor Rfc="AAAA010101AAA" Nombre="Emisor Prueba" RegimenFiscal="601"/>
+    <cfdi:Receptor Rfc="BBBB010101BBB" Nombre="Receptor Prueba" DomicilioFiscalReceptor="01001" RegimenFiscalReceptor="605" UsoCFDI="CN01"/>
+    <cfdi:Conceptos>
+        <cfdi:Concepto ClaveProdServ="84111505" Cantidad="1" ClaveUnidad="ACT" Descripcion="Pago de nómina" ValorUnitario="TODO" Importe="TODO" Descuento="TODO" ObjetoImp="01">
+        </cfdi:Concepto>
+    </cfdi:Conceptos>
+    <cfdi:Complemento>
+        <nomina12:Nomina Version="1.2" TipoNomina="O" FechaPago="2022-05-15" FechaInicialPago="2022-07-01" FechaFinalPago="2022-04-15" NumDiasPagados="30.000" TotalPercepciones="30000.00" TotalDeducciones="4000.00" TotalOtrosPagos="3000.00">
+            <nomina12:Emisor Curp="AAAA010101AAA" RegistroPatronal="B5510768108" RfcPatronOrigen="PAL7202161U0">
+                <nomina12:EntidadSNCF OrigenRecurso="IP" MontoRecursoPropio="25000.00"/>
+            </nomina12:Emisor>
+            <nomina12:Receptior Curp="BBBB010101BBB" NumSeguridadSocial="123456789" FechaInicioRelLaboral="2022-01-01" Antigüedad="P110W" TipoContrato="01" Sindicalizado="Sí" TipoJornada="01" TipoRegimen="02" NumEmpleado="120" Departamento="Cobranza" Puesto="Velador" RiesgoPuesto="1" PeriodicidadPago="04" Banco="002" CuentaBancaria="002215911558451272" SalarioBaseCotApor="490.22" SalarioDiarioIntegrado="146.47" ClaveEntFed="AGU">
+                <nomina12:SubContratacion RfcLabora="XEXX010101000" PorcentajeTiempo="40.000"/>
+            </nomina12:Receptior>
+            <nomina12:Percepciones TotalSueldos="28000.00" TotalSeparacionIndemnizacion="60000.00" TotalJubilacionPensionRetiro="30000.00" TotalGravado="3180.51" TotalExento="150.00">
+                <nomina12:Percepcion TipoPercepcion="001" Clave="00500" Concepto="Sueldos, Salarios Rayas y Jornales" ImporteGravado="2598.80" ImporteExento="1301.00">
+                    <nomina12:AccionesOTitulos ValorMercado="12000.00" PrecioAlOtorgarse="13000.00"/>
+                    <nomina12:HorasExtra Dias="1" TipoHoras="03" HorasExtra="3" ImportePagado="300.00" />
+                </nomina12:Percepcion>
+                <nomina12:JubilacionPensionRetiro TotalUnaExhibicion="20000.00" TotalParcialidad="15000.00" MontoDiario="200.00" IngresoNoAcumulable="970000.00" />
+                <nomina12:SeparacionIndemnizacion TotalPagado="36000.00" NumAñosServicio="11" UltimoSueldoMensOrd="12500.00" IngresoAcumulable="40000.00" IngresoNoAcumulable="1460000.00" />
+            </nomina12:Percepciones>
+            <nomina12:Deducciones TotalOtrasDeducciones="15200.00" TotalImpuestosRetenidos="2500.00">
+                <nomina12:Deduccion TipoDeduccion="001" Clave="00301" Concepto="Seguridad social" Importe="200.00" />
+            </nomina12:Deducciones>
+            <nomina12:OtrosPagos>
+                <nomina12:OtrosPago TipoOtroPago="002" Clave="00101" Concepto="Subsidio para el empleo (efectivamente entregado altrabajador)." Importe="100.00">
+                    <nomina12:SubsidioAlEmpleo SubsidioCausado="200.85"/>
+                    <nomina12:CompensacionSaldosAFavor SaldoAFavor="600.00" Año="2016" RemanenteSalFav="215.00"/>
+                </nomina12:OtrosPago>
+            </nomina12:OtrosPagos>
+            <nomina12:Incapacidades>
+                <nomina12:Incapacidad DiasIncapacidad="7" TipoIncapacidad="03" ImporteMonetario="1100.00" />
+            </nomina12:Incapacidades>
+        </nomina12:Nomina>
+    </cfdi:Complemento>
+    <cfdi:Addenda/>
+</cfdi:Comprobante>
